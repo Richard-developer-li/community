@@ -2,6 +2,9 @@ package life.richard.community.model;
 
 import lombok.Data;
 
+/**
+ * 用户
+ */
 @Data
 public class User {
     private Integer id;
@@ -10,4 +13,5 @@ public class User {
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
+    private String avatarUrl;
 }

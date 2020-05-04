@@ -3,4 +3,5 @@
 ## 资料
 
 ## 工具
-[Visual Prardigm](https://www.visual-paradigm.com/)
+[Visual Paradigm](https://www.visual-paradigm.com/)
+[Flyway](https://flywaydb.org/getstarted/firststeps/maven)

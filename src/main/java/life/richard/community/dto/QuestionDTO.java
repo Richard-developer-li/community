@@ -1,12 +1,10 @@
-package life.richard.community.model;
+package life.richard.community.dto;
 
+import life.richard.community.model.User;
 import lombok.Data;
 
-/**
- * 问题
- */
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -17,4 +15,5 @@ public class Question {
     private Integer viewCount;
     private Integer likeCount;
     private String tag;
+    private User user;
 }
