@@ -10,24 +10,14 @@ public class PaginationDTO {
     private List<QuestionDTO> questions;
     private boolean showPrevious;//是否展示上一页按钮
     private boolean showFirstPage;//是否展示第一页按钮
-    private boolean showNext;
-    private boolean showEndPage;
-    private Integer page;
-    private List<Integer> pages = new ArrayList<>();
-    private Integer totalPage;
+    private boolean showNext;//是否展示下一页按钮
+    private boolean showEndPage;//是否展示最后一页按钮
+    private Integer page;//当前页
+    private List<Integer> pages = new ArrayList<>();//页码
+    private Integer totalPage;//总页数
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-        if(totalCount%size == 0){
-            totalPage = totalCount/size;
-        }else {
-            totalPage = totalCount/size + 1;
-        }
-        if(page < 1 ){
-            page = 1;
-        }
-        if(page > totalPage){
-            page = totalPage;
-        }
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage = totalPage;
         this.page = page;
         pages.add(page);
         for (int i = 1; i <= 3 ; i++) {
