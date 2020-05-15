@@ -2,6 +2,8 @@ package life.richard.community.service;
 
 import life.richard.community.dto.PaginationDTO;
 import life.richard.community.dto.QuestionDTO;
+import life.richard.community.exception.CustomizeErrorCode;
+import life.richard.community.exception.CustomizeException;
 import life.richard.community.mapper.QuestionMapper;
 import life.richard.community.mapper.UserMapper;
 import life.richard.community.model.Question;
@@ -90,6 +92,9 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -112,7 +117,10 @@ public class QuestionService {
             updateQuestion.setTag(question.getTag());
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if(updated != 1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
