@@ -4,6 +4,7 @@ import life.richard.community.dto.PaginationDTO;
 import life.richard.community.dto.QuestionDTO;
 import life.richard.community.exception.CustomizeErrorCode;
 import life.richard.community.exception.CustomizeException;
+import life.richard.community.mapper.QuestionExtMapper;
 import life.richard.community.mapper.QuestionMapper;
 import life.richard.community.mapper.UserMapper;
 import life.richard.community.model.Question;
@@ -21,6 +22,8 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
     @Autowired
     private UserMapper userMapper;
 
@@ -107,7 +110,7 @@ public class QuestionService {
             //创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.insert(question);
+            questionMapper.insertSelective(question);
         }else {
             //更新
             Question updateQuestion = new Question();
@@ -122,5 +125,12 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }
